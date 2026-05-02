@@ -1,1 +1,246 @@
+<!DOCTYPE html>
+<html>
 
+<head>
+<title>Happy Birthday My Love ❤️</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, sans-serif;
+text-align:center;
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+color:white;
+overflow:hidden;
+}
+
+h1{
+margin-top:60px;
+font-size:48px;
+}
+
+p{
+font-size:20px;
+width:80%;
+margin:auto;
+line-height:1.6;
+min-height:120px;
+}
+
+.slideshow{
+width:260px;
+height:260px;
+margin:30px auto;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+.slideshow img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+button{
+margin-top:20px;
+padding:15px 25px;
+font-size:18px;
+border:none;
+border-radius:30px;
+background:white;
+color:#ff4b7d;
+cursor:pointer;
+}
+
+/* floating hearts */
+
+.heart{
+position:absolute;
+color:white;
+font-size:22px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);opacity:1}
+100%{transform:translateY(-100vh);opacity:0}
+}
+
+/* surprise message */
+
+#loveMessage{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:6vw;
+color:white;
+text-shadow:0 0 10px white,0 0 20px pink,0 0 40px red;
+opacity:0;
+transition:opacity 1.5s;
+text-align:center;
+z-index:9999;
+width:90%;
+}
+
+/* glow */
+
+#glow{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:200px;
+height:200px;
+background:radial-gradient(circle, rgba(255,120,160,0.6), transparent 70%);
+border-radius:50%;
+opacity:0;
+transition:all 1.5s ease;
+z-index:500;
+}
+
+/* closing line */
+
+#closingLine{
+position:fixed;
+bottom:30px;
+width:100%;
+text-align:center;
+font-size:18px;
+opacity:0.9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Happy Birthday My Love ❤️🎂</h1>
+
+<div class="slideshow">
+<img id="slide" src="./photo1.jpeg">
+</div>
+
+<p id="message"></p>
+
+<button onclick="startSurprise()">Tap for a surprise ❤️</button>
+
+<div id="loveMessage"></div>
+<div id="glow"></div>
+
+<div id="closingLine">
+Forever grateful that the universe let our paths cross ❤️
+</div>
+
+<audio id="song" src="./music.mp3"></audio>
+
+<script>
+
+/* TYPEWRITER MESSAGE */
+
+let text="Prachuu babbyyy jaaanu jaaan there are so many names i use to call you but no matter the name the feeling behind is always love baby from the moment you came in my life everything became meaningless without you we both are together from so many months but we just fell deeper and deeper in love and thats all i want us to do anyways today is my girlfriend birthday sooo babbyyyyy mayyyy youuuu gettt everythingggg youuu wish for with me obviously soo justtttt be happy and smile always jaaanu. Happy Birthday my love mwahhhhh ❤️";
+
+let i=0;
+
+function typeWriter(){
+if(i<text.length){
+document.getElementById("message").innerHTML+=text.charAt(i);
+i++;
+setTimeout(typeWriter,40);
+}
+}
+
+typeWriter();
+
+/* SLIDESHOW */
+
+let images=[
+"./photo1.jpeg",
+"./photo2.jpeg",
+"./photo3.jpeg",
+"./photo4.jpeg"
+];
+  
+let index=0;
+
+setInterval(()=>{
+index=(index+1)%images.length;
+document.getElementById("slide").src=images[index];
+},3000);
+
+/* FLOATING HEARTS */
+
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*20+20)+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},6000);
+
+},300);
+
+/* SURPRISE */
+
+function startSurprise(){
+
+let song=document.getElementById("song");
+song.currentTime=0;
+song.play().catch(()=>{});
+
+let message=document.getElementById("loveMessage");
+let glow=document.getElementById("glow");
+
+message.style.opacity=1;
+
+message.innerHTML="I found you...";
+
+setTimeout(()=>{
+message.innerHTML="I chose you...";
+},2000);
+
+setTimeout(()=>{
+message.innerHTML="I will always choose you ❤️";
+message.style.fontSize="8vw";
+
+glow.style.opacity=1;
+glow.style.width="800px";
+glow.style.height="800px";
+
+},4000);
+
+/* heart burst */
+
+for(let i=0;i<40;i++){
+
+let heart=document.createElement("div");
+
+heart.innerHTML="❤️";
+heart.style.position="absolute";
+heart.style.left=Math.random()*100+"vw";
+heart.style.top=Math.random()*100+"vh";
+heart.style.fontSize="30px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},2000);
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>
