@@ -358,7 +358,7 @@
   <p class="hero-sub">With every heartbeat — always &amp; forever</p>
 
   <div class="hero-slideshow">
-    <img id="slide" src="./photo1.jpg" alt="Us"
+    <img id="slide" src="./slide1.jpg" alt="Us"
       onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22220%22 height=%22220%22><rect fill=%22%23f2c4ce%22 width=%22220%22 height=%22220%22/><text x=%2250%25%22 y=%2252%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2256%22>🌸</text></svg>'"/>
   </div>
 
@@ -487,25 +487,29 @@
   (function type() { if(i<msg.length){ document.getElementById('message').innerHTML+=msg[i++]; setTimeout(type,36); } })();
 
   /* SLIDESHOW */
-  const photos = ['./photo1','./photo2','./photo3','./photo4'];
+  const slidePhotos = ['./slide1.jpg','./slide2.jpg','./slide3.jpg','./slide4.jpg'];
   let si = 0;
   setInterval(() => {
-    si = (si+1) % photos.length;
+    si = (si+1) % slidePhotos.length;
     const el = document.getElementById('slide');
     el.style.opacity = 0;
-    setTimeout(() => { el.src = photos[si]; el.style.opacity = 1; }, 500);
+    setTimeout(() => { el.src = slidePhotos[si]; el.style.opacity = 1; }, 500);
   }, 3000);
 
   /* GALLERY */
-  ['Us 💕','My fav','Together','Always 🌸'].forEach(lbl => {
+  [
+    { src: './mem1.jpg', label: 'Us 💕' },
+    { src: './mem2.jpg', label: 'My fav' },
+    { src: './mem3.jpg', label: 'Together' },
+    { src: './mem4.jpg', label: 'Always 🌸' },
+  ].forEach(({ src, label }) => {
     const s = document.createElement('div'); s.className = 'photo-slot';
-    s.innerHTML = `<span style="font-size:1.8rem">🌸</span><span>${lbl}</span><input type="file" accept="image/*"/>`;
-    s.querySelector('input').addEventListener('change', e => {
-      const f = e.target.files[0]; if(!f) return;
-      const r = new FileReader();
-      r.onload = ev => { s.innerHTML=''; const img=document.createElement('img'); img.src=ev.target.result; s.appendChild(img); };
-      r.readAsDataURL(f);
-    });
+    const img = document.createElement('img');
+    img.src = src; img.alt = label;
+    img.onerror = () => {
+      s.innerHTML = `<span style="font-size:1.8rem">🌸</span><span style="font-size:.72rem;color:var(--text-mid);letter-spacing:.08em">${label}</span><span style="font-size:.65rem;color:var(--blush-deep);margin-top:.2rem">${src}</span>`;
+    };
+    s.appendChild(img);
     document.getElementById('galleryGrid').appendChild(s);
   });
 
@@ -514,7 +518,7 @@
   document.querySelectorAll('.timeline-item').forEach(el => obs.observe(el));
 
   /* COUNTDOWN — change this date! */
-  const bday = new Date('2026-05-10T00:00:00');
+  const bday = new Date('2025-05-10T00:00:00');
   function tick() {
     const now = new Date();
     let t = new Date(bday); t.setFullYear(now.getFullYear());
